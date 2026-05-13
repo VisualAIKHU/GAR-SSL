@@ -11,7 +11,7 @@ Official repository for the project page and source code of **GAR-SSL**.
 - **Project Page**: https://visualaikhu.github.io/GAR-SSL/
 - **Paper**: https://arxiv.org/pdf/2604.06824
 - **arXiv**: https://arxiv.org/abs/2604.06824
-- **Code**: https://github.com/VisualAIKHU/GAR-SSL
+- **Code**: https://github.com/VisualAIKHU/GAR-SSL/code
 
 ---
 
@@ -62,7 +62,7 @@ The proposed pipeline consists of three main stages:
 ## Project Structure
 
 ```
-GAR-SSL/
+GAR-SSL/code/
 ├── run_all.sh              # Script for running all/individual datasets
 │
 ├── GAR_music_solo.py       # MUSIC Solo evaluation
@@ -143,7 +143,7 @@ Stage C  : IMAGE + AUDIO  →  bbox refinement (ops-based, conservative clamp)
 ### Run all datasets sequentially
 
 ```bash
-cd /data/subin/GAR-SSL
+cd /data/subin/GAR-SSL/code
 bash run_all.sh            # N_VOTES=5 (default)
 bash run_all.sh all 5      # specify N_VOTES=5
 ```
@@ -165,10 +165,10 @@ bash run_all.sh vggss_duet
 ```bash
 python GAR_music_solo.py \
     --model_id    "Qwen/Qwen2.5-Omni-7B" \
-    --frame_dir   "/data/subin/MUSIC/solo/test/frames" \
-    --audio_dir   "/data/subin/MUSIC/solo/test/audio" \
-    --gt_path     "/data/subin/metadata/music_solo.json" \
-    --out_root    "/data/subin/GAR-SSL/outputs/GAR_music_solo" \
+    --frame_dir   "../MUSIC/solo/test/frames" \
+    --audio_dir   "../MUSIC/solo/test/audio" \
+    --gt_path     "../metadata/music_solo.json" \
+    --out_root    "../GAR-SSL/code/outputs/GAR_music_solo" \
     --cuda_device "0" \
     --n_votes     5 \
     --tau_av      0.50 \
