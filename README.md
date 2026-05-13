@@ -58,19 +58,6 @@ The proposed pipeline consists of three main stages:
 
 ---
 
-## Qualitative Results
-
-<p align="center">
-  <img src="static/images/qualitative_results1.png" width="900"><br>
-  <em>Qualitative localization results on VGGSound-Duet and MUSIC-Duet.</em>
-</p>
-
-<p align="center">
-  <img src="static/images/qualitative_results2.png" width="900"><br>
-  <em>Qualitative localization results on VGGSound-Single and MUSIC-Solo.</em>
-</p>
-
-
 
 ## Project Structure
 
@@ -111,6 +98,23 @@ Stage C  : IMAGE + AUDIO  →  bbox refinement (ops-based, conservative clamp)
 ```
 
 ---
+
+
+## Qualitative Results
+
+<p align="center">
+  <img src="static/images/qualitative_results1.png" width="900"><br>
+  <em>Qualitative localization results on VGGSound-Duet and MUSIC-Duet.</em>
+</p>
+
+<p align="center">
+  <img src="static/images/qualitative_results2.png" width="900"><br>
+  <em>Qualitative localization results on VGGSound-Single and MUSIC-Solo.</em>
+</p>
+
+
+---
+
 
 ## Data Path Structure
 
