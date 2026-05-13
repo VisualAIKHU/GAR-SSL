@@ -119,7 +119,7 @@ Stage C  : IMAGE + AUDIO  →  bbox refinement (ops-based, conservative clamp)
 ## Data Path Structure
 
 ```
-/data/subin/
+/data/user/
 ├── MUSIC/
 │   ├── solo/test/frames/       # *.jpg
 │   └── solo/test/audio/        # *.wav
@@ -143,7 +143,7 @@ Stage C  : IMAGE + AUDIO  →  bbox refinement (ops-based, conservative clamp)
 ### Run all datasets sequentially
 
 ```bash
-cd /data/subin/GAR-SSL/code
+cd /data/user/GAR-SSL/code
 bash run_all.sh            # N_VOTES=5 (default)
 bash run_all.sh all 5      # specify N_VOTES=5
 ```
@@ -165,10 +165,10 @@ bash run_all.sh vggss_duet
 ```bash
 python GAR_music_solo.py \
     --model_id    "Qwen/Qwen2.5-Omni-7B" \
-    --frame_dir   "../MUSIC/solo/test/frames" \
-    --audio_dir   "../MUSIC/solo/test/audio" \
-    --gt_path     "../metadata/music_solo.json" \
-    --out_root    "../GAR-SSL/code/outputs/GAR_music_solo" \
+    --frame_dir   "/data/user/MUSIC/solo/test/frames" \
+    --audio_dir   "/data/user/MUSIC/solo/test/audio" \
+    --gt_path     "/data/user/metadata/music_solo.json" \
+    --out_root    "GAR-SSL/code/outputs/GAR_music_solo" \
     --cuda_device "0" \
     --n_votes     5 \
     --tau_av      0.50 \
