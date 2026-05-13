@@ -40,6 +40,11 @@ Extensive experiments on single-source and multi-source benchmarks demonstrate c
 
 GAR-SSL reformulates sound source localization as a **meta-reasoning process** rather than direct audio-visual feature matching.
 
+<p align="center">
+  <img src="static/images/overview.png" width="900"><br>
+  <em>Generation-Analysis-Refinement Sound Source Localization (GAR-SSL) framework. Given an image-audio pair, the model performs three meta-reasoning steps: Generation produces an initial bounding box and audio label, Analysis evaluates Audio-Visual Consistency through role-based reasoning, and Refinement adjusts the localization to obtain a fine-grained final bounding box. This process enables explainable and training-free audio-visual localization.</em>
+</p>
+
 The proposed pipeline consists of three main stages:
 
 1. **Generation**  
@@ -52,6 +57,20 @@ The proposed pipeline consists of three main stages:
    Adaptive gating determines whether refinement is necessary and applies conservative bounding box adjustment only when needed.
 
 ---
+
+## Qualitative Results
+
+<p align="center">
+  <img src="static/images/qualitative_results1.png" width="900"><br>
+  <em>Qualitative localization results on VGGSound-Duet and MUSIC-Duet.</em>
+</p>
+
+<p align="center">
+  <img src="static/images/qualitative_results2.png" width="900"><br>
+  <em>Qualitative localization results on VGGSound-Single and MUSIC-Solo.</em>
+</p>
+
+
 
 ## Project Structure
 
@@ -77,6 +96,11 @@ GAR-SSL/
 ## Pipeline Overview
 
 Each script consists of 3 stages + gating.
+
+<p align="center">
+  <img src="static/images/pipeline.png" width="900"><br>
+  <em>The proposed training-free framework consists of three stages: (i) Generation produces initial bounding boxes and audio classifications from image-audio pairs; (ii) Analysis evaluates consistency through role tagging, anchor voting, and scoring, repeated $N$ times for consensus; (iii) Refinement applies adaptive gating and geometric operations to adjust localization. All operations are performed via MLLMs prompt engineering without training.</em>
+</p>
 
 ```
 Stage A  : IMAGE + AUDIO  →  bbox prediction (initial location)
