@@ -90,11 +90,11 @@ Each script consists of 3 stages + gating.
 </p>
 
 ```
-Stage A  : IMAGE + AUDIO  →  bbox prediction (initial location)
-Stage B-1: AUDIO only     →  audio_class + confidence prediction
-Stage B-2: Anchor Voting  →  av_consistency / keep decision (consensus after n iterations)
+Generation  : IMAGE + AUDIO  →  bbox prediction (initial location)
+Analysis1  : AUDIO only     →  audio_class + confidence prediction
+Analysis2  : Anchor Voting  →  av_consistency / keep decision (consensus after n iterations)
 Gating   : keep=True & av ≥ τ_av & audio_conf ≥ τ_audio  →  skip refinement
-Stage C  : IMAGE + AUDIO  →  bbox refinement (ops-based, conservative clamp)
+Refinement D  : IMAGE + AUDIO  →  bbox refinement (ops-based, conservative clamp)
 ```
 
 ---
