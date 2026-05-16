@@ -1,104 +1,94 @@
-# GAR-SSL
+<h1 align="center">GAR-SSL</h1>
 
-**Generate, Analyze, and Refine: Training-Free Sound Source Localization via MLLM Meta-Reasoning**
+<h3 align="center">
+Generate, Analyze, and Refine:<br>
+Training-Free Sound Source Localization via MLLM Meta-Reasoning
+</h3>
 
-Official repository for the project page and source code of **GAR-SSL**.
+<p align="center">
+  <b>Training-free sound source localization through structured MLLM meta-reasoning.</b>
+</p>
 
----
+<p align="center">
+  <img src="https://img.shields.io/badge/Task-Sound%20Source%20Localization-blue">
+  <img src="https://img.shields.io/badge/Framework-Training--Free-green">
+  <img src="https://img.shields.io/badge/Model-MLLM-orange">
+  <img src="https://img.shields.io/badge/Code-PyTorch-red">
+</p>
 
-## Links
+<p align="center">
+  🌐 <a href="https://visualaikhu.github.io/GAR-SSL/">Project Page</a> &nbsp;|&nbsp;
+  📄 <a href="https://arxiv.org/pdf/2604.06824">Paper</a> &nbsp;|&nbsp;
+  🔗 <a href="https://arxiv.org/abs/2604.06824">arXiv</a> &nbsp;|&nbsp;
+  💻 <a href="https://github.com/VisualAIKHU/GAR-SSL">Code</a>
+</p>
 
-- **Project Page**: https://visualaikhu.github.io/GAR-SSL/
-- **Paper**: https://arxiv.org/pdf/2604.06824
-- **arXiv**: https://arxiv.org/abs/2604.06824
-- **Code**: https://github.com/VisualAIKHU/GAR-SSL/code
-
----
-
-## Authors
-
-- **Subin Park**
-- **Jung Uk Kim***  
-
-Kyung Hee University  
-
-\* Corresponding author
-
----
-
-## Abstract
-
-Sound source localization task aims to identify the locations of sound-emitting objects by leveraging correlations between audio and visual modalities. Most existing SSL methods rely on contrastive learning-based feature matching, but lack explicit reasoning and verification, limiting their effectiveness in complex acoustic scenes.
-
-Inspired by human meta-cognitive processes, we propose a training-free SSL framework that exploits the intrinsic reasoning capabilities of Multimodal Large Language Models (MLLMs). Our Generation-Analysis-Refinement (GAR) pipeline consists of three stages: **Generation** produces initial bounding boxes and audio classifications; **Analysis** quantifies Audio-Visual Consistency via open-set role tagging and anchor voting; and **Refinement** applies adaptive gating to prevent unnecessary adjustments.
-
-Extensive experiments on single-source and multi-source benchmarks demonstrate competitive performance.
+<p align="center">
+  <b>Subin Park</b>, <b>Jung Uk Kim*</b><br>
+  Kyung Hee University, <a href="https://visualai.khu.ac.kr/">Visual AI Lab.</a><br>
+  * Corresponding author
+</p>
 
 ---
 
 ## Overview
 
-GAR-SSL reformulates sound source localization as a **meta-reasoning process** rather than direct audio-visual feature matching.
-
 <p align="center">
   <img src="images/overview.png" width="900"><br>
-  <em>Generation-Analysis-Refinement Sound Source Localization (GAR-SSL) framework. Given an image-audio pair, the model performs three meta-reasoning steps: Generation produces an initial bounding box and audio label, Analysis evaluates Audio-Visual Consistency through role-based reasoning, and Refinement adjusts the localization to obtain a fine-grained final bounding box. This process enables explainable and training-free audio-visual localization.</em>
+  <em>
+  Overview of the proposed GAR-SSL framework. GAR-SSL performs sound source localization through three structured reasoning steps: Generation, Analysis, and Refinement.
+  </em>
 </p>
 
-The proposed pipeline consists of three main stages:
-
-1. **Generation**  
-   The MLLM predicts initial bounding boxes for sound-emitting objects and estimates audio classes.
-
-2. **Analysis**  
-   The framework evaluates Audio-Visual Consistency using open-set role tagging and anchor voting.
-
-3. **Refinement**  
-   Adaptive gating determines whether refinement is necessary and applies conservative bounding box adjustment only when needed.
+GAR-SSL reformulates sound source localization as a **meta-reasoning process** rather than direct audio-visual feature matching.  
+Given an image-audio pair, the framework generates initial localization results, analyzes audio-visual consistency, and refines the predicted bounding boxes only when necessary.
 
 ---
 
+## Abstract
 
-## Project Structure
+Sound source localization aims to identify the locations of sound-emitting objects by leveraging correlations between audio and visual modalities. Most existing SSL methods rely on contrastive learning-based feature matching, but lack explicit reasoning and verification, limiting their effectiveness in complex acoustic scenes.
 
-```
-GAR-SSL/code/
-├── run_all.sh              # Script for running all/individual datasets
-│
-├── GAR_music_solo.py       # MUSIC Solo evaluation
-├── GAR_music_duet.py       # MUSIC Duet evaluation
-├── GAR_vggss_single.py     # VGGSound Single evaluation
-├── GAR_vggss_duet.py       # VGGSound Duet evaluation
-│
-├── model_utils.py          # Model loading / inference / JSON parsing / Anchor Voting
-├── bbox_utils.py           # Bounding box operations (clip, clamp, ops, denorm, IoU)
-├── evaluator.py            # cIoU evaluation class
-├── data_utils.py           # Per-dataset GT JSON loader
-├── prompts_single.py       # Prompt builder for Solo/Single
-└── prompts_duet.py         # Prompt builder for Duet
-```
+Inspired by human meta-cognitive processes, we propose a **training-free SSL framework** that exploits the intrinsic reasoning capabilities of Multimodal Large Language Models (MLLMs). Our **Generation-Analysis-Refinement (GAR)** pipeline consists of three steps: **Generation** produces initial bounding boxes and audio classifications; **Analysis** quantifies audio-visual consistency via open-set role tagging and anchor voting; and **Refinement** applies adaptive gating to prevent unnecessary adjustments.
+
+Extensive experiments on single-source and multi-source benchmarks demonstrate competitive performance.
 
 ---
 
-## Pipeline Overview
+## Highlights
 
-Each script consists of 3 stages + gating.
+- **Training-free framework** without task-specific model training.
+- **MLLM-based meta-reasoning** for explainable sound source localization.
+- **Generation-Analysis-Refinement pipeline** for structured audio-visual reasoning.
+- **Adaptive gating** to avoid unnecessary refinement.
+- Supports both **single-source** and **multi-source** sound localization benchmarks.
+
+---
+
+## Method Overview
+
+| Step | Name | Description |
+|------|------|-------------|
+| 1 | **Generation** | Predicts initial bounding boxes and audio classes from image-audio pairs. |
+| 2 | **Analysis** | Evaluates audio-visual consistency using role tagging and anchor voting. |
+| 3 | **Refinement** | Applies adaptive gating and conservative bounding box adjustment only when needed. |
 
 <p align="center">
   <img src="images/pipeline.png" width="900"><br>
-  <em>The proposed training-free framework consists of three stages: (i) Generation produces initial bounding boxes and audio classifications from image-audio pairs; (ii) Analysis evaluates consistency through role tagging, anchor voting, and scoring, repeated $N$ times for consensus; (iii) Refinement applies adaptive gating and geometric operations to adjust localization. All operations are performed via MLLMs prompt engineering without training.</em>
+  <em>
+  The proposed training-free framework consists of Generation, Analysis, and Refinement. All steps are performed through MLLM prompting without task-specific training.
+  </em>
 </p>
 
-```
-Generation  : IMAGE + AUDIO  →  bbox prediction (initial location)
-Analysis1  : AUDIO only     →  audio_class + confidence prediction
-Analysis2  : Anchor Voting  →  av_consistency / keep decision (consensus after n iterations)
-Gating   : keep=True & av ≥ τ_av & audio_conf ≥ τ_audio  →  skip refinement
-Refinement D  : IMAGE + AUDIO  →  bbox refinement (ops-based, conservative clamp)
+```text
+Generation   : IMAGE + AUDIO  →  bbox prediction
+Analysis 1   : AUDIO only     →  audio class + confidence prediction
+Analysis 2   : Anchor Voting  →  audio-visual consistency / keep decision
+Gating       : keep=True & av ≥ τ_av & audio_conf ≥ τ_audio  →  skip refinement
+Refinement   : IMAGE + AUDIO  →  bbox refinement
 ```
 
 ---
-
 
 ## Qualitative Results
 
@@ -112,13 +102,32 @@ Refinement D  : IMAGE + AUDIO  →  bbox refinement (ops-based, conservative cla
   <em>Qualitative localization results on VGGSound-Single and MUSIC-Solo.</em>
 </p>
 
+---
+
+## Project Structure
+
+```text
+GAR-SSL/code/
+├── run_all.sh              # Script for running all/individual datasets
+│
+├── GAR_music_solo.py       # MUSIC Solo evaluation
+├── GAR_music_duet.py       # MUSIC Duet evaluation
+├── GAR_vggss_single.py     # VGGSound Single evaluation
+├── GAR_vggss_duet.py       # VGGSound Duet evaluation
+│
+├── model_utils.py          # Model loading / inference / JSON parsing / Anchor Voting
+├── bbox_utils.py           # Bounding box operations
+├── evaluator.py            # cIoU evaluation class
+├── data_utils.py           # Per-dataset GT JSON loader
+├── prompts_single.py       # Prompt builder for Solo/Single
+└── prompts_duet.py         # Prompt builder for Duet
+```
 
 ---
 
-
 ## Data Path Structure
 
-```
+```text
 /data/user/
 ├── MUSIC/
 │   ├── solo/test/frames/       # *.jpg
@@ -131,36 +140,43 @@ Refinement D  : IMAGE + AUDIO  →  bbox refinement (ops-based, conservative cla
 │   ├── test/frames/ & audio/
 │   └── vggss_duet_test.json
 └── metadata/
-    ├── music_solo.json          # [{file, bbox:[x,y,w,h]}, ...]     normalized xywh
-    ├── music_duet.json          # [{file, bbox_src1, bbox_src2, class_src1, class_src2}, ...]
-    └── vggss.json               # [{file, bbox:[[x1,y1,x2,y2]]}, ...]  normalized xyxy
+    ├── music_solo.json
+    ├── music_duet.json
+    └── vggss.json
 ```
 
 ---
 
 ## How to Run
 
-### Run all datasets sequentially
+<details>
+<summary><b>Run all datasets sequentially</b></summary>
 
 ```bash
 cd /data/user/GAR-SSL/code
+
 bash run_all.sh            # N_VOTES=5 (default)
 bash run_all.sh all 5      # specify N_VOTES=5
 ```
 
-### Run a specific dataset only
+</details>
+
+<details>
+<summary><b>Run a specific dataset only</b></summary>
 
 ```bash
 bash run_all.sh music_solo           # N_VOTES=5 (default)
 bash run_all.sh music_solo 3         # specify N_VOTES=3
+
 bash run_all.sh music_duet
 bash run_all.sh vggss_single
 bash run_all.sh vggss_duet
 ```
 
-> You can specify `N_VOTES` as the **second argument**. If omitted, the default value `5` is used.
+</details>
 
-### Direct Python execution (custom arguments)
+<details>
+<summary><b>Direct Python execution</b></summary>
 
 ```bash
 python GAR_music_solo.py \
@@ -175,26 +191,32 @@ python GAR_music_solo.py \
     --tau_audio   0.75
 ```
 
+</details>
+
+> You can specify `N_VOTES` as the second argument. If omitted, the default value `5` is used.
+
 ---
 
-## Argument Descriptions
+## Arguments
 
 | Argument | Type | Description |
 |----------|------|-------------|
 | `--model_id` | str | HuggingFace model ID or local path |
-| `--frame_dir` | str | Input frame image directory (`.jpg`) |
-| `--audio_dir` | str | Input audio directory (`.wav`) |
+| `--frame_dir` | str | Input frame image directory |
+| `--audio_dir` | str | Input audio directory |
 | `--gt_path` | str | GT JSON file path |
 | `--out_root` | str | Output root directory |
-| `--cuda_device` | str | GPU number to use (`"0"`, `"1"`, ...) |
-| `--n_votes` | int | Number of Anchor Voting iterations (default: 5) |
-| `--tau_av` | float | Stage B-2 gating threshold — av_consistency |
-| `--tau_audio` | float | Stage B-2 gating threshold — audio_confidence |
+| `--cuda_device` | str | GPU number to use |
+| `--n_votes` | int | Number of Anchor Voting iterations |
+| `--tau_av` | float | Audio-visual consistency threshold |
+| `--tau_audio` | float | Audio confidence threshold |
 
-### Default Gating Thresholds per Dataset
+---
+
+## Default Gating Thresholds
 
 | Dataset | `--tau_av` | `--tau_audio` |
-|---------|-----------|---------------|
+|---------|-----------:|--------------:|
 | MUSIC Solo | 0.75 | 0.75 |
 | MUSIC Duet | 0.75 | 0.50 |
 | VGGSound Single | 0.50 | 0.50 |
@@ -204,16 +226,17 @@ python GAR_music_solo.py \
 
 ## Output Structure
 
-```
+```text
 outputs/GAR_<dataset>/
-├── vis_original/       # Original resolution visualization (blue=pred, green=GT)
+├── vis_original/       # Original resolution visualization
 ├── vis224/             # 224x224 resized visualization
 ├── bbox/               # Per-sample JSON results
 │   └── <vid>.json
 └── bbox_all.json       # Full summary JSON
 ```
 
-### Per-sample JSON Structure (Solo/Single)
+<details>
+<summary><b>Per-sample JSON example</b></summary>
 
 ```json
 {
@@ -226,17 +249,22 @@ outputs/GAR_<dataset>/
   "analysis": {
     "av_consistency": 0.82,
     "role_tags": ["bow_hand", "violin_body"],
-    "anchor_votes": [{"anchor": "bow_on_strings", "score": 0.9}],
+    "anchor_votes": [
+      {
+        "anchor": "bow_on_strings",
+        "score": 0.9
+      }
+    ],
     "keep": true
   }
 }
 ```
 
+</details>
+
 ---
 
 ## Evaluation Metrics
-
-The following metrics are printed to the terminal upon completion.
 
 | Metric | Description |
 |--------|-------------|
@@ -246,3 +274,22 @@ The following metrics are printed to the terminal upon completion.
 | `CAP` | Mean per-sample Average Precision |
 | `PIAP` | Pixel-level Average Precision |
 | Gating stats | Ratio of refinement executed / skipped |
+
+---
+
+## Citation
+
+```bibtex
+@article{park2026garssl,
+  title={Generate, Analyze, and Refine: Training-Free Sound Source Localization via MLLM Meta-Reasoning},
+  author={Park, Subin and Kim, Jung Uk},
+  journal={arXiv preprint arXiv:2604.06824},
+  year={2026}
+}
+```
+
+---
+
+## Acknowledgement
+
+This project is developed by Visual AI Lab at Kyung Hee University.
